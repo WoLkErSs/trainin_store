@@ -5,16 +5,14 @@ class BooksController < ApplicationController
   decorates_assigned :book
 
   def index
-    @pagy, @books = pagy(query_books.books_sort(@current_filter), items: BOOKS_PER_PAGE)
+    @pagy, @books = pagy(BooksQuery.new(@category).books_sort(@current_filter), items: BOOKS_PER_PAGE)
   end
 
-  def show; end
+  def show
+    @book = Book.friendly.find(params[:id])
+  end
 
   private
-
-  def query_books
-    BooksQuery.new(@books, @category)
-  end
 
   def selection
     @current_filter = FilterService.new.call(params[:selection])

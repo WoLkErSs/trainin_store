@@ -90,7 +90,7 @@ else
                         Adipisci quidem corporis eum a vitae rerum aut culpa. Sunt qui doloremque cupiditate at eum.
                         Illum quis rem voluptatum mollitia et.",
                         quantity: rand(1..100),
-                        category_id: rand(21..24),
+                        category_id: rand(1..2),
                         publication_year: Time.zone.now,
                         material: 'paper',
                         sold: rand(1..50),
