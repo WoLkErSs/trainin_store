@@ -1,2 +1,0 @@
-class ShippingForm < AddressForm
-end

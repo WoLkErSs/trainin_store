@@ -5,14 +5,13 @@
       .images.clearfix
         - book.images.each do |file|
           %img.minimize{alt: 'design-book', src: file.image_url, class: 'img-link'}/
-  = render 'reviews/book_reviews'
 .col-sm-6
   %h1.mt-res-0
     = book.title
   %p.lead.small
     = book.authors_all
   .row
-    = form_with url: order_items_path, method: :post do |form|
+    = form_with url: '#', method: :post do |form|
       .col-xs-12.col-md-4
         %p.h1.in-gold-500.mt-10
           =t(:'book.price', price: book.price)

@@ -1,2 +1,0 @@
-class BillingForm < AddressForm
-end

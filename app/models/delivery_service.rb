@@ -1,2 +1,0 @@
-class DeliveryService < ApplicationRecord
-end

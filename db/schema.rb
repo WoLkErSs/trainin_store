@@ -10,27 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_10_204816) do
+ActiveRecord::Schema.define(version: 2019_09_10_144305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "addresses", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "address"
-    t.string "city"
-    t.string "zip"
-    t.string "country"
-    t.string "phone"
-    t.string "type"
-    t.boolean "use_billing_address", default: false
-    t.string "addressable_type"
-    t.bigint "addressable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
-  end
 
   create_table "authors", force: :cascade do |t|
     t.string "first_name"
@@ -74,11 +57,6 @@ ActiveRecord::Schema.define(version: 2019_09_10_204816) do
     t.index ["book_id"], name: "index_books_authors_on_book_id"
   end
 
-  create_table "catalogs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
@@ -87,104 +65,28 @@ ActiveRecord::Schema.define(version: 2019_09_10_204816) do
     t.index ["slug"], name: "index_categories_on_slug", unique: true
   end
 
-  create_table "coupons", force: :cascade do |t|
-    t.string "key"
-    t.integer "value", default: 1
-    t.boolean "active", default: true
-    t.bigint "order_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_coupons_on_order_id"
-  end
-
-  create_table "credit_cards", force: :cascade do |t|
-    t.string "number", null: false
-    t.integer "cvv", null: false
-    t.string "name", null: false
-    t.string "expiry_date", null: false
-    t.bigint "order_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_credit_cards_on_order_id"
-  end
-
-  create_table "delivery_services", force: :cascade do |t|
-    t.string "name"
-    t.decimal "price", precision: 7, scale: 2
-    t.integer "from_days"
-    t.integer "to_days"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "images", force: :cascade do |t|
     t.string "image"
     t.bigint "book_id"
     t.index ["book_id"], name: "index_images_on_book_id"
   end
 
-  create_table "order_items", force: :cascade do |t|
-    t.bigint "book_id"
-    t.bigint "order_id"
-    t.integer "quantity", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_order_items_on_book_id"
-    t.index ["order_id"], name: "index_order_items_on_order_id"
-  end
-
-  create_table "orders", force: :cascade do |t|
-    t.text "status"
-    t.bigint "user_id"
-    t.bigint "coupon_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.float "total", default: 0.0
-    t.bigint "delivery_service_id"
-    t.text "checkout", default: "address"
-    t.text "number"
-    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
-    t.index ["delivery_service_id"], name: "index_orders_on_delivery_service_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
-  end
-
-  create_table "reviews", force: :cascade do |t|
-    t.text "status"
-    t.text "body"
-    t.string "title"
-    t.integer "score", default: 0
-    t.bigint "user_id"
-    t.bigint "book_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "verified"
-    t.index ["book_id"], name: "index_reviews_on_book_id"
-    t.index ["user_id"], name: "index_reviews_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.boolean "admin", default: false, null: false
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.text "image"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "provider"
-    t.string "uid"
-    t.string "name"
-    t.text "image"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "images", "books"
-  add_foreign_key "order_items", "books"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "orders", "users"
 end

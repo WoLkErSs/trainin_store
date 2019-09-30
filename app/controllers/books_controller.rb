@@ -3,7 +3,6 @@ class BooksController < ApplicationController
   include Pagy::Backend
   before_action :selection, only: :index
   decorates_assigned :book
-  load_and_authorize_resource
 
   def index
     @pagy, @books = pagy(query_books.books_sort(@current_filter), items: BOOKS_PER_PAGE)
