@@ -106,3 +106,4 @@ Book.all.each do |book_cur|
     book_cur.images.create(remote_image_url: EXTEND_BOOK_IMAGES[rand(0..3)])
   end
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

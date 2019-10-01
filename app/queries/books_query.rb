@@ -9,7 +9,7 @@ class BooksQuery
   }.freeze
 
   def initialize(category = false)
-    @books = category ? Category.friendly.find(category).books : Book.all
+    @books = books_by_category(category)
   end
 
   def books_sort(filter)
@@ -22,5 +22,11 @@ class BooksQuery
     else
       @books.order('created_at DESC')
     end
+  end
+
+  private
+
+  def books_by_category(category)
+    category ? Category.friendly.find(category).books : Book.all
   end
 end

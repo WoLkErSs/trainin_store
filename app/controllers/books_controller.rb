@@ -1,21 +1,16 @@
 class BooksController < ApplicationController
-  BOOKS_PER_PAGE = 6
   include Pagy::Backend
-  before_action :selection, only: :index
   decorates_assigned :book
+  BOOKS_PER_PAGE = 12
 
   def index
+    filter = params[:selection]
+    @current_filter = BooksQuery::FILTERS.values.include?(filter) ? filter : BooksQuery::FILTERS[:created_at_desc]
+    @category = params[:category]
     @pagy, @books = pagy(BooksQuery.new(@category).books_sort(@current_filter), items: BOOKS_PER_PAGE)
   end
 
   def show
     @book = Book.friendly.find(params[:id])
-  end
-
-  private
-
-  def selection
-    @current_filter = FilterService.new.call(params[:selection])
-    @category = params[:category]
   end
 end

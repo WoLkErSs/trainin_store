@@ -35,7 +35,6 @@ Metrics/BlockLength:
 
 Metrics/MethodLength:
   Exclude:
-    - 'app/models/ability.rb'
 
 AllCops:
   TargetRubyVersion: 2.5.1
@@ -49,7 +48,6 @@ AllCops:
     - 'db/migrate/**/*'
     - 'db/schema.rb'
     - 'app/uploaders/**/*'
-    - 'app/forms/address_form.rb'
 
 Style/UnneededInterpolation:
   Exclude:
@@ -58,9 +56,6 @@ Style/UnneededInterpolation:
 Metrics/AbcSize:
   Max: 20
   Exclude:
-    - 'app/presenters/catalog_presenter.rb'
-    - 'app/controllers/users/registrations_controller.rb'
-    - 'app/services/checkout/form_variables_service.rb'
     - 'app/decorators/book_decorator.rb'
 
 RSpec/MessageChain:
