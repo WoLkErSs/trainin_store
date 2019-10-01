@@ -65,7 +65,7 @@ end
 
 if Rails.env.development?
   require 'ffaker'
-  1.times do
+  15.times do
     book = Book.create!(title: FFaker::Book.title,
                         price: FFaker::PhoneNumber.area_code / 100.00,
                         description: FFaker::Lorem.paragraph(10),

@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  BOOKS_PER_PAGE = 12
+  BOOKS_PER_PAGE = 6
   include Pagy::Backend
   before_action :selection, only: :index
   decorates_assigned :book
