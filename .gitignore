@@ -37,3 +37,4 @@ master.key
 /config/sekrets/sekrets.development.yml
 /config/sekrets/sekrets.production.yml
 /config/sekrets/sekrets.test.yml
+/.history
